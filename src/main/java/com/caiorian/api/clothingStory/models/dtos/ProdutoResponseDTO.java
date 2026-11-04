@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public record ProtudoResponseDTO(
+public record ProdutoResponseDTO(
         UUID id,
         String nome,
         String descricao,
@@ -14,7 +14,7 @@ public record ProtudoResponseDTO(
         Boolean ativo
 ) {
 
-    public ProtudoResponseDTO(
+    public ProdutoResponseDTO(
             UUID id, String nome, String descricao, LocalDateTime dataCriacao,
             BigDecimal preco, Integer estoque, Boolean ativo
     ) {
