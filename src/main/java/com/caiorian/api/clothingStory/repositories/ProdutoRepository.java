@@ -42,4 +42,9 @@ public interface ProdutoRepository extends JpaRepository<Produto, UUID> {
         WHERE p.id = :id
     """)
     Optional<ProdutoResponseDTO> findProdutoById(@Param("id") UUID id);
+
+    @Query("""
+        SELECT p FROM Produto p WHERE p.id = :id
+    """)
+    Optional<Produto> findEntityById(@Param("id") UUID id);
 }
