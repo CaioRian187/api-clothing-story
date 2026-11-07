@@ -42,4 +42,12 @@ public class Produto {
     @Column(name = "is_ativo", nullable = false)
     private Boolean ativo;
 
+    public Produto(String nome, String descricao, BigDecimal preco, Integer estoque, Boolean ativo){
+        this.nome = nome;
+        this.descricao = descricao;
+        this.preco = preco;
+        this.estoque = estoque;
+        this.ativo = ativo;
+    }
+
 }
