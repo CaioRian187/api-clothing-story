@@ -10,7 +10,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -32,5 +36,14 @@ public class ProdutoServiceImpl implements ProdutoService {
     public Page<ProdutoResponseDTO> findAllProdutos(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         return this.produtoRepository.findAllProdutos(pageable);
+    }
+
+    @Override
+    public ProdutoResponseDTO findProdutoById(UUID id) {
+        return this.produtoRepository.findProdutoById(id)
+                .orElseThrow( () -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "Produto não encontrado na base de dados."
+                ));
     }
 }
