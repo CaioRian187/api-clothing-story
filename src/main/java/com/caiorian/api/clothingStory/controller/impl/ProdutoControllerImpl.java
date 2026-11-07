@@ -7,12 +7,10 @@ import com.caiorian.api.clothingStory.services.ProdutoService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "Produtos")
 @RestController
@@ -26,5 +24,14 @@ public class ProdutoControllerImpl implements ProdutoController {
     @PostMapping
     public ResponseEntity<ProdutoResponseDTO> create(@RequestBody @Valid ProdutoRequestDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(this.produtoService.create(dto));
+    }
+
+    @Override
+    @GetMapping("/findAll")
+    public ResponseEntity<Page<ProdutoResponseDTO>> findAllProdutos(
+            @RequestParam("page") int page,
+            @RequestParam("size") int size
+    ) {
+        return ResponseEntity.status(HttpStatus.OK).body(this.produtoService.findAllProdutos(page, size));
     }
 }
