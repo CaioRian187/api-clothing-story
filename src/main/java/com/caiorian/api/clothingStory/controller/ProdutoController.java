@@ -7,6 +7,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 
+import java.util.UUID;
+
 public interface ProdutoController {
 
     @Operation(
@@ -26,4 +28,13 @@ public interface ProdutoController {
             }
     )
     ResponseEntity<Page<ProdutoResponseDTO>> findAllProdutos(int page, int size);
+
+    @Operation(
+            summary = "Buscar produto por Id.",
+            responses = {
+                    @ApiResponse(responseCode = "200"),
+                    @ApiResponse(responseCode = "500")
+            }
+    )
+    ResponseEntity<ProdutoResponseDTO> findProdutoById(UUID id);
 }
