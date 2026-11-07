@@ -46,4 +46,13 @@ public class ProdutoServiceImpl implements ProdutoService {
                         "Produto não encontrado na base de dados."
                 ));
     }
+
+    @Override
+    public Produto findEntityById(UUID id) {
+        return this.produtoRepository.findEntityById(id)
+                .orElseThrow( () -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "Produto não encontrado na base de dados."
+                ));
+    }
 }
