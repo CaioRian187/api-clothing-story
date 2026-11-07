@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @Tag(name = "Produtos")
 @RestController
 @RequestMapping("/produtos")
@@ -33,5 +35,11 @@ public class ProdutoControllerImpl implements ProdutoController {
             @RequestParam("size") int size
     ) {
         return ResponseEntity.status(HttpStatus.OK).body(this.produtoService.findAllProdutos(page, size));
+    }
+
+    @Override
+    @GetMapping("/{id}")
+    public ResponseEntity<ProdutoResponseDTO> findProdutoById(@PathVariable("id") UUID id) {
+        return ResponseEntity.status(HttpStatus.OK).body(this.produtoService.findProdutoById(id));
     }
 }
