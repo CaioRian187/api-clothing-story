@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -54,5 +55,27 @@ public class ProdutoServiceImpl implements ProdutoService {
                         HttpStatus.NOT_FOUND,
                         "Produto não encontrado na base de dados."
                 ));
+    }
+
+    @Override
+    public ProdutoResponseDTO update(UUID produtoId, ProdutoRequestDTO dto) {
+
+        Produto produto = this.findEntityById(produtoId);
+
+        Produto produtoAtualizado = this.updateProdutoByDto(produto, dto);
+
+        this.produtoRepository.save(produtoAtualizado);
+
+        return ProdutoMapper.toDtoFromEntity(produtoAtualizado);
+    }
+
+    private Produto updateProdutoByDto(Produto produto, ProdutoRequestDTO dto){
+        produto.setNome(dto.nome());
+        produto.setDescricao(dto.descricao());
+        produto.setPreco(dto.preco());
+        produto.setEstoque(dto.estoque());
+        produto.setAtivo(dto.ativo());
+
+        return produto;
     }
 }
