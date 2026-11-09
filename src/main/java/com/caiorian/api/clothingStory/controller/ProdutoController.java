@@ -37,4 +37,13 @@ public interface ProdutoController {
             }
     )
     ResponseEntity<ProdutoResponseDTO> findProdutoById(UUID id);
+
+    @Operation(
+            summary = "Atualizar Produto.",
+            responses = {
+                    @ApiResponse(responseCode = "200"),
+                    @ApiResponse(responseCode = "500")
+            }
+    )
+    ResponseEntity<ProdutoResponseDTO> update(UUID produtoId, ProdutoRequestDTO dto);
 }

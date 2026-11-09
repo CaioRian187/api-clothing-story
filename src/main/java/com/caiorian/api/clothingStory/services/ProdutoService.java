@@ -13,4 +13,5 @@ public interface ProdutoService {
     Page<ProdutoResponseDTO> findAllProdutos(int page, int size);
     ProdutoResponseDTO findProdutoById(UUID id);
     Produto findEntityById(UUID id);
+    ProdutoResponseDTO update(UUID produtoId, ProdutoRequestDTO dto);
 }

@@ -42,4 +42,13 @@ public class ProdutoControllerImpl implements ProdutoController {
     public ResponseEntity<ProdutoResponseDTO> findProdutoById(@PathVariable("id") UUID id) {
         return ResponseEntity.status(HttpStatus.OK).body(this.produtoService.findProdutoById(id));
     }
+
+    @Override
+    @PutMapping("/{produtoId}")
+    public ResponseEntity<ProdutoResponseDTO> update(
+            @PathVariable("produtoId") UUID produtoId,
+            @RequestBody @Valid ProdutoRequestDTO dto
+    ) {
+        return ResponseEntity.status(HttpStatus.OK).body(this.produtoService.update(produtoId, dto));
+    }
 }
