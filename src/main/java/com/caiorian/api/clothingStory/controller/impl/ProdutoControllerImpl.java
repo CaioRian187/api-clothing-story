@@ -51,4 +51,11 @@ public class ProdutoControllerImpl implements ProdutoController {
     ) {
         return ResponseEntity.status(HttpStatus.OK).body(this.produtoService.update(produtoId, dto));
     }
+
+    @Override
+    @DeleteMapping("/{produtoId}")
+    public ResponseEntity<Void> deleteById(@PathVariable("produtoId") UUID produtoId) {
+        this.produtoService.deleteById(produtoId);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 }
