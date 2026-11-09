@@ -2,7 +2,7 @@ package com.caiorian.api.clothingStory.services.impl;
 
 import com.caiorian.api.clothingStory.models.dtos.ProdutoRequestDTO;
 import com.caiorian.api.clothingStory.models.dtos.ProdutoResponseDTO;
-import com.caiorian.api.clothingStory.models.entities.Produto;
+import com.caiorian.api.clothingStory.models.entities.ProdutoEntity;
 import com.caiorian.api.clothingStory.models.mapper.ProdutoMapper;
 import com.caiorian.api.clothingStory.repositories.ProdutoRepository;
 import com.caiorian.api.clothingStory.services.ProdutoService;
@@ -14,7 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -26,11 +25,11 @@ public class ProdutoServiceImpl implements ProdutoService {
     @Override
     public ProdutoResponseDTO create(ProdutoRequestDTO dto) {
 
-        Produto produto = ProdutoMapper.toEntityFromDto(dto);
+        ProdutoEntity produtoEntity = ProdutoMapper.toEntityFromDto(dto);
 
-        this.produtoRepository.save(produto);
+        this.produtoRepository.save(produtoEntity);
 
-        return ProdutoMapper.toDtoFromEntity(produto);
+        return ProdutoMapper.toDtoFromEntity(produtoEntity);
     }
 
     @Override
@@ -49,7 +48,7 @@ public class ProdutoServiceImpl implements ProdutoService {
     }
 
     @Override
-    public Produto findEntityById(UUID id) {
+    public ProdutoEntity findEntityById(UUID id) {
         return this.produtoRepository.findEntityById(id)
                 .orElseThrow( () -> new ResponseStatusException(
                         HttpStatus.NOT_FOUND,
@@ -60,13 +59,13 @@ public class ProdutoServiceImpl implements ProdutoService {
     @Override
     public ProdutoResponseDTO update(UUID produtoId, ProdutoRequestDTO dto) {
 
-        Produto produto = this.findEntityById(produtoId);
+        ProdutoEntity produtoEntity = this.findEntityById(produtoId);
 
-        Produto produtoAtualizado = this.updateProdutoByDto(produto, dto);
+        ProdutoEntity produtoEntityAtualizado = this.updateProdutoByDto(produtoEntity, dto);
 
-        this.produtoRepository.save(produtoAtualizado);
+        this.produtoRepository.save(produtoEntityAtualizado);
 
-        return ProdutoMapper.toDtoFromEntity(produtoAtualizado);
+        return ProdutoMapper.toDtoFromEntity(produtoEntityAtualizado);
     }
 
     @Override
@@ -75,13 +74,13 @@ public class ProdutoServiceImpl implements ProdutoService {
         this.produtoRepository.deleteById(produtoId);
     }
 
-    private Produto updateProdutoByDto(Produto produto, ProdutoRequestDTO dto){
-        produto.setNome(dto.nome());
-        produto.setDescricao(dto.descricao());
-        produto.setPreco(dto.preco());
-        produto.setEstoque(dto.estoque());
-        produto.setAtivo(dto.ativo());
+    private ProdutoEntity updateProdutoByDto(ProdutoEntity produtoEntity, ProdutoRequestDTO dto){
+        produtoEntity.setNome(dto.nome());
+        produtoEntity.setDescricao(dto.descricao());
+        produtoEntity.setPreco(dto.preco());
+        produtoEntity.setEstoque(dto.estoque());
+        produtoEntity.setAtivo(dto.ativo());
 
-        return produto;
+        return produtoEntity;
     }
 }

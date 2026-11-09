@@ -1,7 +1,7 @@
 package com.caiorian.api.clothingStory.repositories;
 
 import com.caiorian.api.clothingStory.models.dtos.ProdutoResponseDTO;
-import com.caiorian.api.clothingStory.models.entities.Produto;
+import com.caiorian.api.clothingStory.models.entities.ProdutoEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,7 +11,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface ProdutoRepository extends JpaRepository<Produto, UUID> {
+public interface ProdutoRepository extends JpaRepository<ProdutoEntity, UUID> {
 
     @Query("""
         SELECT new com.caiorian.api.clothingStory.models.dtos.ProdutoResponseDTO(
@@ -23,7 +23,7 @@ public interface ProdutoRepository extends JpaRepository<Produto, UUID> {
             p.estoque,
             p.ativo
         )
-        FROM Produto p
+        FROM ProdutoEntity p
         ORDER BY p.nome ASC
     """)
     Page<ProdutoResponseDTO> findAllProdutos(Pageable pageable);
@@ -38,13 +38,13 @@ public interface ProdutoRepository extends JpaRepository<Produto, UUID> {
             p.estoque,
             p.ativo
         )
-        FROM Produto p
+        FROM ProdutoEntity p
         WHERE p.id = :id
     """)
     Optional<ProdutoResponseDTO> findProdutoById(@Param("id") UUID id);
 
     @Query("""
-        SELECT p FROM Produto p WHERE p.id = :id
+        SELECT p FROM ProdutoEntity p WHERE p.id = :id
     """)
-    Optional<Produto> findEntityById(@Param("id") UUID id);
+    Optional<ProdutoEntity> findEntityById(@Param("id") UUID id);
 }
