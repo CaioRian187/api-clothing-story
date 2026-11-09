@@ -15,6 +15,7 @@ public interface ProdutoController {
             summary = "Criar um produto.",
             responses = {
                     @ApiResponse(responseCode = "201"),
+                    @ApiResponse(responseCode = "400"),
                     @ApiResponse(responseCode = "500")
             }
     )
@@ -24,6 +25,7 @@ public interface ProdutoController {
             summary = "Buscar produtos com paginação.",
             responses = {
                     @ApiResponse(responseCode = "200"),
+                    @ApiResponse(responseCode = "404"),
                     @ApiResponse(responseCode = "500")
             }
     )
@@ -33,6 +35,7 @@ public interface ProdutoController {
             summary = "Buscar produto por Id.",
             responses = {
                     @ApiResponse(responseCode = "200"),
+                    @ApiResponse(responseCode = "404"),
                     @ApiResponse(responseCode = "500")
             }
     )
@@ -42,6 +45,8 @@ public interface ProdutoController {
             summary = "Atualizar Produto.",
             responses = {
                     @ApiResponse(responseCode = "200"),
+                    @ApiResponse(responseCode = "400"),
+                    @ApiResponse(responseCode = "404"),
                     @ApiResponse(responseCode = "500")
             }
     )
