@@ -69,6 +69,12 @@ public class ProdutoServiceImpl implements ProdutoService {
         return ProdutoMapper.toDtoFromEntity(produtoAtualizado);
     }
 
+    @Override
+    public void deleteById(UUID produtoId) {
+        this.findEntityById(produtoId);
+        this.produtoRepository.deleteById(produtoId);
+    }
+
     private Produto updateProdutoByDto(Produto produto, ProdutoRequestDTO dto){
         produto.setNome(dto.nome());
         produto.setDescricao(dto.descricao());
