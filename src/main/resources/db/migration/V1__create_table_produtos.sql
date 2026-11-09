@@ -1,0 +1,9 @@
+CREATE TABLE produtos(
+    id UUID PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    descricao VARCHAR(255) NOT NULL,
+    data_criacao TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    preco DECIMAL(10, 2) NOT NULL,
+    estoque INTEGER NOT NULL,
+    ativo BOOLEAN NOT NULL
+);
