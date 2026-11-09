@@ -46,4 +46,14 @@ public interface ProdutoController {
             }
     )
     ResponseEntity<ProdutoResponseDTO> update(UUID produtoId, ProdutoRequestDTO dto);
+
+    @Operation(
+            summary = "Deletar Produto.",
+            responses = {
+                    @ApiResponse(responseCode = "200"),
+                    @ApiResponse(responseCode = "404"),
+                    @ApiResponse(responseCode = "500")
+            }
+    )
+    ResponseEntity<Void> deleteById(UUID produtoId);
 }
