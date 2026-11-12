@@ -19,6 +19,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -72,4 +74,18 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         }
     }
 
+    @Override
+    public UsuarioResponseDTO findLogedUser(){
+        UsuarioEntity usuario = this.getUsuarioLogadoEntity();
+        return UsuarioMapper.toDtoFromEntity(usuario);
+    }
+
+    private UsuarioEntity getUsuarioLogadoEntity() {
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.getPrincipal() instanceof UserDetails userDetails) {
+            return usuarioRepository.findByEmail(userDetails.getUsername())
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Usuario logado não encontrado na base de dados!"));
+        }
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Usuario logado não encontrado na base de dados!");
+    }
 }
