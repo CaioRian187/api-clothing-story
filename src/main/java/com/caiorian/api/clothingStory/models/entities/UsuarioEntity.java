@@ -47,6 +47,14 @@ public class UsuarioEntity implements UserDetails {
         inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<RoleEntity> roles = new HashSet<>();
 
+    public UsuarioEntity(String nome, String telefone, String email, String senha, Set<RoleEntity> roles) {
+        this.nome = nome;
+        this.telefone = telefone;
+        this.email = email;
+        this.senha = senha;
+        this.roles = roles;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;

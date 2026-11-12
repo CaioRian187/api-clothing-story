@@ -27,6 +27,10 @@ public class RoleEntity implements GrantedAuthority {
     @Column(name = "nome", nullable = false, unique = true)
     private RoleTypeEnum nome;
 
+    public RoleEntity(RoleTypeEnum roleTypeEnum) {
+        this.nome = roleTypeEnum;
+    }
+
     @Override
     public @Nullable String getAuthority() {
         return nome.name();
