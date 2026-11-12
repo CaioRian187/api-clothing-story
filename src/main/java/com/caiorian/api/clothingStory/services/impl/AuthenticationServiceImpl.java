@@ -1,5 +1,8 @@
 package com.caiorian.api.clothingStory.services.impl;
 
+import com.caiorian.api.clothingStory.config.security.TokenProvider;
+import com.caiorian.api.clothingStory.models.dtos.LoginRequestDTO;
+import com.caiorian.api.clothingStory.models.dtos.TokenResponseDTO;
 import com.caiorian.api.clothingStory.models.dtos.UsuarioRequestDTO;
 import com.caiorian.api.clothingStory.models.dtos.UsuarioResponseDTO;
 import com.caiorian.api.clothingStory.models.entities.RoleEntity;
@@ -10,7 +13,12 @@ import com.caiorian.api.clothingStory.repositories.RoleRepository;
 import com.caiorian.api.clothingStory.repositories.UsuarioRepository;
 import com.caiorian.api.clothingStory.services.AuthenticationService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -19,9 +27,14 @@ import org.springframework.web.server.ResponseStatusException;
 @RequiredArgsConstructor
 public class AuthenticationServiceImpl implements AuthenticationService {
 
+    @Value("${jwt.expiration}")
+    private long expirationTime;
+
     private final UsuarioRepository usuarioRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
+    private final AuthenticationManager authenticationManager;
+    private final TokenProvider tokenProvider;
 
     @Override
     public UsuarioResponseDTO cadastrar(UsuarioRequestDTO dto) {
@@ -44,4 +57,19 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         return UsuarioMapper.toDtoFromEntity(usuario);
     }
+
+    @Override
+    public TokenResponseDTO login(LoginRequestDTO dto) {
+        try{
+            Authentication authentication = this.authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(dto.email(), dto.senha()));
+
+            String token = this.tokenProvider.gerarToken(authentication);
+
+            return new TokenResponseDTO(token, expirationTime);
+
+        }catch (BadCredentialsException e) {
+            throw new BadCredentialsException("Credenciais inválidas.");
+        }
+    }
+
 }
