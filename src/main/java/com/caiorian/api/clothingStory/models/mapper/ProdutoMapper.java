@@ -2,12 +2,12 @@ package com.caiorian.api.clothingStory.models.mapper;
 
 import com.caiorian.api.clothingStory.models.dtos.ProdutoRequestDTO;
 import com.caiorian.api.clothingStory.models.dtos.ProdutoResponseDTO;
-import com.caiorian.api.clothingStory.models.entities.Produto;
+import com.caiorian.api.clothingStory.models.entities.ProdutoEntity;
 
 public abstract class ProdutoMapper {
 
-    public static Produto toEntityFromDto(ProdutoRequestDTO dto){
-        return new Produto(
+    public static ProdutoEntity toEntityFromDto(ProdutoRequestDTO dto){
+        return new ProdutoEntity(
                 dto.nome(),
                 dto.descricao(),
                 dto.preco(),
@@ -16,15 +16,15 @@ public abstract class ProdutoMapper {
         );
     }
 
-    public static ProdutoResponseDTO toDtoFromEntity(Produto produto){
+    public static ProdutoResponseDTO toDtoFromEntity(ProdutoEntity produtoEntity){
         return new ProdutoResponseDTO(
-                produto.getId(),
-                produto.getNome(),
-                produto.getDescricao(),
-                produto.getDataCriacao(),
-                produto.getPreco(),
-                produto.getEstoque(),
-                produto.getAtivo()
+                produtoEntity.getId(),
+                produtoEntity.getNome(),
+                produtoEntity.getDescricao(),
+                produtoEntity.getDataCriacao(),
+                produtoEntity.getPreco(),
+                produtoEntity.getEstoque(),
+                produtoEntity.getAtivo()
         );
     }
 }
