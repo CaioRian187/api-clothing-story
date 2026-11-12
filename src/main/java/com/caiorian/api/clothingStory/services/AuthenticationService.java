@@ -9,4 +9,5 @@ public interface AuthenticationService {
 
     UsuarioResponseDTO cadastrar(UsuarioRequestDTO dto);
     TokenResponseDTO login(LoginRequestDTO dto);
+    UsuarioResponseDTO findLogedUser();
 }
