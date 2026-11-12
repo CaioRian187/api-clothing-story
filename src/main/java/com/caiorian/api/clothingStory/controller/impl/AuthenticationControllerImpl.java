@@ -1,6 +1,8 @@
 package com.caiorian.api.clothingStory.controller.impl;
 
 import com.caiorian.api.clothingStory.controller.AuthenticationController;
+import com.caiorian.api.clothingStory.models.dtos.LoginRequestDTO;
+import com.caiorian.api.clothingStory.models.dtos.TokenResponseDTO;
 import com.caiorian.api.clothingStory.models.dtos.UsuarioRequestDTO;
 import com.caiorian.api.clothingStory.models.dtos.UsuarioResponseDTO;
 import com.caiorian.api.clothingStory.services.AuthenticationService;
@@ -26,5 +28,11 @@ public class AuthenticationControllerImpl implements AuthenticationController {
     @PostMapping("/cadastrar")
     public ResponseEntity<UsuarioResponseDTO> cadastrar(@RequestBody @Valid UsuarioRequestDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(this.authenticationService.cadastrar(dto));
+    }
+
+    @Override
+    @PostMapping("/login")
+    public ResponseEntity<TokenResponseDTO> login(LoginRequestDTO dto) {
+        return ResponseEntity.status(HttpStatus.OK).body(this.authenticationService.login(dto));
     }
 }

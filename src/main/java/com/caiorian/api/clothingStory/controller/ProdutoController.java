@@ -12,7 +12,7 @@ import java.util.UUID;
 public interface ProdutoController {
 
     @Operation(
-            summary = "Criar um produto.",
+            summary = "Criar um produto",
             responses = {
                     @ApiResponse(responseCode = "201"),
                     @ApiResponse(responseCode = "500")
@@ -21,7 +21,7 @@ public interface ProdutoController {
     ResponseEntity<ProdutoResponseDTO> create(ProdutoRequestDTO dto);
 
     @Operation(
-            summary = "Buscar produtos com paginação.",
+            summary = "Buscar produtos com paginação",
             responses = {
                     @ApiResponse(responseCode = "200"),
                     @ApiResponse(responseCode = "500")
@@ -30,7 +30,7 @@ public interface ProdutoController {
     ResponseEntity<Page<ProdutoResponseDTO>> findAllProdutos(int page, int size);
 
     @Operation(
-            summary = "Buscar produto por Id.",
+            summary = "Buscar produto por Id",
             responses = {
                     @ApiResponse(responseCode = "200"),
                     @ApiResponse(responseCode = "500")
@@ -39,7 +39,7 @@ public interface ProdutoController {
     ResponseEntity<ProdutoResponseDTO> findProdutoById(UUID id);
 
     @Operation(
-            summary = "Atualizar Produto.",
+            summary = "Atualizar Produto",
             responses = {
                     @ApiResponse(responseCode = "200"),
                     @ApiResponse(responseCode = "500")
@@ -48,7 +48,7 @@ public interface ProdutoController {
     ResponseEntity<ProdutoResponseDTO> update(UUID produtoId, ProdutoRequestDTO dto);
 
     @Operation(
-            summary = "Deletar Produto.",
+            summary = "Deletar Produto",
             responses = {
                     @ApiResponse(responseCode = "200"),
                     @ApiResponse(responseCode = "404"),

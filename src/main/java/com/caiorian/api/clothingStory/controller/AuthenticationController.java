@@ -1,5 +1,7 @@
 package com.caiorian.api.clothingStory.controller;
 
+import com.caiorian.api.clothingStory.models.dtos.LoginRequestDTO;
+import com.caiorian.api.clothingStory.models.dtos.TokenResponseDTO;
 import com.caiorian.api.clothingStory.models.dtos.UsuarioRequestDTO;
 import com.caiorian.api.clothingStory.models.dtos.UsuarioResponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
@@ -9,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 public interface AuthenticationController {
 
     @Operation(
-            summary = "Cadastrar Usuário.",
+            summary = "Cadastrar Usuário",
             responses = {
                     @ApiResponse(responseCode = "200"),
                     @ApiResponse(responseCode = "400"),
@@ -17,4 +19,14 @@ public interface AuthenticationController {
             }
     )
     ResponseEntity<UsuarioResponseDTO> cadastrar(UsuarioRequestDTO dto);
+
+    @Operation(
+            summary = "Efetuar Login",
+            responses = {
+                    @ApiResponse(responseCode = "200"),
+                    @ApiResponse(responseCode = "400"),
+                    @ApiResponse(responseCode = "500")
+            }
+    )
+    ResponseEntity<TokenResponseDTO> login(LoginRequestDTO dto);
 }
