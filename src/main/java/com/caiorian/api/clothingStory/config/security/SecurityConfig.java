@@ -1,5 +1,6 @@
 package com.caiorian.api.clothingStory.config.security;
 
+import io.swagger.v3.oas.models.PathItem;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -42,6 +43,12 @@ public class SecurityConfig {
                                 "/swagger-ui/**",
                                 "/v3/api-docs/**",
                                 "/swagger-ui.html").permitAll()
+
+                        .requestMatchers(HttpMethod.GET, "/produtos/**").permitAll()
+                        .requestMatchers(HttpMethod.POST,"/produtos/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT,"/produtos/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE,"/produtos/**").hasRole("ADMIN")
+
                         .anyRequest().authenticated()
                 )
 
