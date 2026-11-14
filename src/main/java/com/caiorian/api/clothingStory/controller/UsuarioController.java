@@ -4,8 +4,13 @@ import com.caiorian.api.clothingStory.models.dtos.UpdateUsuarioRequestDTO;
 import com.caiorian.api.clothingStory.models.dtos.UsuarioResponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface UsuarioController {
@@ -31,5 +36,14 @@ public interface UsuarioController {
             }
     )
     ResponseEntity<Void> delete(UUID usuarioId);
+
+    @Operation(
+            summary = "Buscar todos os Usuários",
+            responses = {
+                    @ApiResponse(responseCode = "200"),
+                    @ApiResponse(responseCode = "500")
+            }
+    )
+    ResponseEntity<Page<UsuarioResponseDTO>> findAllUsuarios(int page, int size);
 
 }

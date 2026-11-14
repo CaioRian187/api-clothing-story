@@ -27,8 +27,7 @@ public abstract class UsuarioMapper {
                 usuario.getNome(),
                 usuario.getTelefone(),
                 usuario.getDataCriacao(),
-                usuario.getEmail(),
-                usuario.getRoles().stream().map(RoleEntity::getNome).collect(Collectors.toSet())
+                usuario.getEmail()
         );
     }
 }

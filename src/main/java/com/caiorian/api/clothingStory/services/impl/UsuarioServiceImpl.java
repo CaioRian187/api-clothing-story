@@ -7,10 +7,13 @@ import com.caiorian.api.clothingStory.models.mapper.UsuarioMapper;
 import com.caiorian.api.clothingStory.repositories.UsuarioRepository;
 import com.caiorian.api.clothingStory.services.UsuarioService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -46,6 +49,11 @@ public class UsuarioServiceImpl implements UsuarioService {
         }
 
         this.usuarioRepository.deleteById(usuarioId);
+    }
+
+    @Override
+    public Page<UsuarioResponseDTO> findAllUsuarios(Pageable pageable) {
+        return this.usuarioRepository.findAllUsuarios(pageable);
     }
 
     private UsuarioEntity updateUsuarioByDto(UsuarioEntity usuario, UpdateUsuarioRequestDTO dto){
