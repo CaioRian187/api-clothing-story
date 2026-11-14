@@ -7,10 +7,13 @@ import com.caiorian.api.clothingStory.services.UsuarioService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @Tag(name = "Usuários")
@@ -35,5 +38,14 @@ public class UsuarioControllerImpl implements UsuarioController {
     public ResponseEntity<Void> delete(@PathVariable("usuarioId") UUID usuarioId) {
         this.usuarioService.delete(usuarioId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @Override
+    @GetMapping("/findAllUsuarios")
+    public ResponseEntity<Page<UsuarioResponseDTO>> findAllUsuarios(
+            @RequestParam("page") int page,
+            @RequestParam("size") int size
+    ) {
+        return ResponseEntity.status(HttpStatus.OK).body(this.usuarioService.findAllUsuarios(PageRequest.of(page, size)));
     }
 }
