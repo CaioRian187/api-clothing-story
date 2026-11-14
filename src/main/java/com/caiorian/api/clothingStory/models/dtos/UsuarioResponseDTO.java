@@ -1,5 +1,6 @@
 package com.caiorian.api.clothingStory.models.dtos;
 
+import com.caiorian.api.clothingStory.models.entities.RoleEntity;
 import com.caiorian.api.clothingStory.models.enums.RoleTypeEnum;
 
 import java.time.LocalDateTime;
@@ -11,7 +12,6 @@ public record UsuarioResponseDTO(
         String nome,
         String telefone,
         LocalDateTime dataCriacao,
-        String email,
-        Set<RoleTypeEnum> roles
+        String email
 ) {
 }
