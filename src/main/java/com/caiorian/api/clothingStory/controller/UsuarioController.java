@@ -21,4 +21,15 @@ public interface UsuarioController {
     )
     ResponseEntity<UsuarioResponseDTO> update(UUID usuarioId, UpdateUsuarioRequestDTO dto);
 
+
+    @Operation(
+            summary = "Delete Usuário",
+            responses = {
+                    @ApiResponse(responseCode = "204"),
+                    @ApiResponse(responseCode = "404"),
+                    @ApiResponse(responseCode = "500")
+            }
+    )
+    ResponseEntity<Void> delete(UUID usuarioId);
+
 }
