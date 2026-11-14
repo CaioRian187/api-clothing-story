@@ -3,6 +3,7 @@ package com.caiorian.api.clothingStory.repositories;
 import com.caiorian.api.clothingStory.models.entities.UsuarioEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Optional;
@@ -14,4 +15,7 @@ public interface UsuarioRepository extends JpaRepository<UsuarioEntity, UUID> {
     Optional<UsuarioEntity> findByEmail(String email);
 
     boolean existsByEmail(String email);
+
+    @Query("SELECT u FROM UsuarioEntity u WHERE u.id = :id")
+    UsuarioEntity findEntityById(@Param("id") UUID id);
 }
