@@ -10,4 +10,5 @@ import java.util.UUID;
 public interface UsuarioService {
 
     UsuarioResponseDTO update(UUID usuarioId, UpdateUsuarioRequestDTO dto);
+    void delete(UUID usuarioId);
 }

@@ -29,4 +29,11 @@ public class UsuarioControllerImpl implements UsuarioController {
     ) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(this.usuarioService.update(usuarioId, dto));
     }
+
+    @Override
+    @DeleteMapping("/{usuarioId}")
+    public ResponseEntity<Void> delete(@PathVariable("usuarioId") UUID usuarioId) {
+        this.usuarioService.delete(usuarioId);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 }

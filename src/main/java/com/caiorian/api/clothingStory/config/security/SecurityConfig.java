@@ -50,7 +50,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.DELETE,"/produtos/**").hasRole("ADMIN")
 
                         .requestMatchers(HttpMethod.PUT, "/usuario/**").permitAll()
-
+                        .requestMatchers(HttpMethod.DELETE, "/usuario/**").permitAll()
 
                         .anyRequest().authenticated()
                 )

@@ -35,6 +35,19 @@ public class UsuarioServiceImpl implements UsuarioService {
         return UsuarioMapper.toDtoFromEntity(usuarioAtualizado);
     }
 
+    @Override
+    public void delete(UUID usuarioId) {
+
+        if (!this.usuarioRepository.existsById(usuarioId)){
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
+                    "Usuário não encontrado!"
+            );
+        }
+
+        this.usuarioRepository.deleteById(usuarioId);
+    }
+
     private UsuarioEntity updateUsuarioByDto(UsuarioEntity usuario, UpdateUsuarioRequestDTO dto){
         usuario.setNome(dto.nome());
         usuario.setTelefone(dto.telefone());
